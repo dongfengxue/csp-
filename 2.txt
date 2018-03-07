@@ -1,0 +1,70 @@
+#include <iostream>
+#include<cstdio>
+#include<vector>
+
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+struct _teach{
+	int w;
+	int s;
+	int c;
+	int end; 
+};
+vector <_teach> teach;  
+
+
+int main() {
+vector <int> a;
+vector <int> b;  //还钥匙时刻 
+int n,k;
+cin>>n;
+for(int i=0;i<n;i++)
+{
+	a.push_back(i+1);		//钥匙盒状态 
+}
+//for( int i=0;i<n;i++)
+//	cout<<a[i]<<" ";
+cin>>k;  //接下来k行 
+int max=0; 
+for(int i=0;i<k;i++)
+{
+	int w,s,c;   //钥匙编号，开始时间，持续时间 
+	_teach t;
+	cin>>w>>s>>c;
+	t.w=w;
+	t.s=s;
+	t.c=c;
+	t.end=s+c;
+	teach.push_back(t);	
+	if(max< (s+c))
+	 max=s+c;			//max 表示结束的最晚时刻 
+}
+//cout<<max<<endl;
+for(int i=0;i<=max;i++)
+{
+	for(int j=0;j<teach.size();j++)
+		if(teach[j].s==i)		 //借钥匙时刻
+		{	for(int k=0;k<n;k++)
+				if(a[k]==teach[j].w)
+					a[k]=0;			//钥匙状态为0
+			}
+		else if(teach[j].end==i)		//还钥匙时刻
+		{
+		
+			for(int k=0;k<n;k++) 
+			{
+				if(a[k]==0)
+				{
+					a[k]=teach[j].w;
+					break;
+				}
+			}
+		}
+}
+for(int i=0;i<n;i++)
+	cout<<a[i]<<" ";
+return 0;
+}

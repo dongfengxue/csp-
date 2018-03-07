@@ -1,0 +1,35 @@
+#include <iostream>
+#include<cstdio>
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+int main() {
+	
+	int n,num=0;
+	cin>>n;
+	int m,x1,y1,z1;
+	m=n/10;
+	x1=m/5;
+	y1=m%5;
+	if(x1==0)
+		{
+			x1=m/3;
+			if(x1==0)
+			 num=m;
+			else
+			 num=x1*4+m%3;
+		}
+	else
+		{
+			z1=y1/3;
+			if(z1==0)
+				num=x1*7+y1;
+			else
+				num=x1*7+z1*4+y1%3;
+			
+		}
+		cout<<num;
+	return 0;
+}

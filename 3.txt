@@ -1,0 +1,93 @@
+#include <iostream>
+#include<cstdio>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+struct _json{
+	string key;
+	string value;
+};
+vector <_json> json;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+string get_key(string s){
+	int pos;
+	pos=s.find(":");
+	//end
+	string key;
+	key=s.substr(1,pos-1);
+	return key;
+//	value=s.substr(pos+2,s.length()-2);
+}
+string get_value(string s){
+	int pos,end_pos,special_pos;
+	string value;
+	pos=s.find(":");
+	end_pos=s.find(",");
+	special_pos=s.find("{");
+	if((end_pos==(int)string::npos) && (special_pos==(int)string::npos))
+		{
+			value="{" ;
+		}
+	else if(end_pos!=(int)string::npos)
+	{
+		value=s.substr(pos+2,end_pos-2);
+	}
+	else 
+		value=s.substr(pos+2,s.length()-1);
+//	key=s.substr(1,pos-1);
+//	value=s.substr(pos+2,s.length()-2);
+	return value;
+}
+
+int main() {
+  int n,m;
+  vector <string> a; 
+ // map <string,string> b;
+cin>>n;			//json行数 
+cin>>m;			//查询次数
+for(int i=0;i<n;i++)
+{
+	string  s;
+//	int pos;
+	_json js;
+	cin>>s;
+	a.push_back(s);
+	js.key=get_key(s);
+	js.value=get_value(s);
+	json.push_back(js);
+	
+} 
+for(int i=0;i<m;i++)
+{
+	string s;
+	int flag=0,pos;
+	cin>>s;                //输入的查询字符串 
+	//pos=s.find("\");
+	if(pos!=string::npos)
+	{
+		
+	}
+	for(int j=0;j<n;j++)
+	{
+		if(json[j].key==s)
+			if(json[j].value=="{")
+			{
+				cout<<"OBJECT";
+				flag=1;
+			}
+			else 
+			{	cout<<"STRING"<<" "<<json[j].value;
+				flag=1;
+			}
+		 
+	}
+	if(flag==0)
+	 cout<<"NOTEXIST";
+	
+}
+
+return 0;
+}

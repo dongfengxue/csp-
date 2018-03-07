@@ -1,0 +1,65 @@
+#include <iostream>
+#include<cstdio>
+#include<vector>
+
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+int main() {
+  int n,m;
+  cin>>n;    //部门数量 
+  cin>>m;	//单向通路数量
+  //vector <int *> s;
+  int s[102][102]={0};
+  for(int i=0;i<m;i++)
+  	{
+  		int a,b;
+  		cin>>a>>b;
+  		s[a][b]=1;
+  		//s[b][a]=1;
+  	} 
+  for(int i=0;i<=n;i++)
+     s[i][i]=1;					//数组矩阵初始化 
+     
+   for(int i=1;i<=n;i++)
+   	for(int j=i+1;j<=n;j++)
+   		for(int k=i;k<=j;k++)
+   			if((s[i][k]==1)&&(s[k][j]==1))
+   				s[i][j]=1;
+/*for(int i=1;i<=n;i++)
+{
+	for(int j=1;j<=n;j++)
+		cout<<s[i][j];
+	cout<<endl;
+}*/
+
+	int num=0;
+  for(int i=1;i<=n;i++)
+  {
+  	int sum=0;
+  	for(int j=1;j<=n;j++)
+  	{
+  		
+  		sum=sum+s[i][j];
+  	}
+	if(sum == n)
+		num++; 
+  }					//统计横排
+    for(int j=1;j<=n;j++)
+  {
+  	int sum=0;
+  	for(int i=1;i<=n;i++)
+  	{
+  		
+  		sum=sum+s[i][j];
+  	}
+	if(sum == n)
+		num++;      //统计竖排 
+  }	
+  
+  cout<<num;
+  
+return 0;
+}
